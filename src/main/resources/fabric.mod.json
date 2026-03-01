@@ -1,0 +1,28 @@
+{
+	"schemaVersion": 1,
+	"id": "screenshot_clipboard",
+	"version": "${version}",
+	"name": "Screenshot Clipboard",
+	"description": "A tiny mod that copies screenshots straight to your clipboard.",
+	"authors": [
+		"User"
+	],
+	"contact": {},
+	"license": "CC0-1.0",
+	"icon": "assets/screenshot_clipboard/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"client": [
+			"net.user.ScreenshotClipboardClient"
+		]
+	},
+	"mixins": [
+		"screenshot_clipboard.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.18.2",
+		"minecraft": "~1.21.11",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
