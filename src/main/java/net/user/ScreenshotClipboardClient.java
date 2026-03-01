@@ -5,10 +5,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ScreenshotClipboardClient implements ClientModInitializer {
-    public static final Logger LOGGER = LoggerFactory.getLogger("screenshot-clipboard");
+    public static final String MOD_ID = "screenshot_clipboard";
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     @Override
     public void onInitializeClient() {
-        LOGGER.info("Screenshot Clipboard: loaded.");
+        LOGGER.info("Screenshot to Clipboard initialized!");
     }
 }

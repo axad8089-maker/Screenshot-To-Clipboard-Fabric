@@ -1,14 +1,14 @@
 package net.user;
 
+import java.awt.Image;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
-import java.awt.image.BufferedImage;
 
 public class ClipboardImageTransferable implements Transferable {
-    private final BufferedImage image;
+    private final Image image;
 
-    public ClipboardImageTransferable(BufferedImage image) {
+    public ClipboardImageTransferable(Image image) {
         this.image = image;
     }
 
