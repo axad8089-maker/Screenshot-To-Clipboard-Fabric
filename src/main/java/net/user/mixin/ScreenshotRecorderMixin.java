@@ -48,4 +48,55 @@ public class ScreenshotRecorderMixin {
             net.user.ScreenshotClipboardClient.LOGGER.error("Failed to prepare screenshot for clipboard", e);
         }
     }
+
+    /**
+     * 1.21.7 / 1.21.11: takeScreenshot(Framebuffer, Consumer<NativeImage>) - wrap callback, write to file on game thread then copy.
+     */
+    @ModifyVariable(
+        method = "takeScreenshot(Lnet/minecraft/client/gl/Framebuffer;Ljava/util/function/Consumer;)V",
+        at = @At("HEAD"),
+        argsOnly = true,
+        require = 0
+    )
+    private static Consumer<NativeImage> wrapTakeScreenshotCallback(Consumer<NativeImage> callback) {
+        if (callback == null) return null;
+        return image -> {
+            if (image != null) {
+                try {
+                    java.nio.file.Path tempFile = Files.createTempFile("minecraft_screenshot_clipboard_", ".png");
+                    image.writeTo(tempFile);
+                    ClipboardHandler.copyImageFromFile(tempFile, makeCopiedToClipboardMessage());
+                } catch (Exception e) {
+                    net.user.ScreenshotClipboardClient.LOGGER.error("Failed to prepare screenshot for clipboard", e);
+                }
+            }
+            callback.accept(image);
+        };
+    }
+
+    /**
+     * 1.21.7 / 1.21.11: takeScreenshot(Framebuffer, int, Consumer<NativeImage>) - wrap callback.
+     */
+    @ModifyVariable(
+        method = "takeScreenshot(Lnet/minecraft/client/gl/Framebuffer;ILjava/util/function/Consumer;)V",
+        at = @At("HEAD"),
+        argsOnly = true,
+        index = 2,
+        require = 0
+    )
+    private static Consumer<NativeImage> wrapTakeScreenshotWithFactorCallback(Consumer<NativeImage> callback) {
+        if (callback == null) return null;
+        return image -> {
+            if (image != null) {
+                try {
+                    java.nio.file.Path tempFile = Files.createTempFile("minecraft_screenshot_clipboard_", ".png");
+                    image.writeTo(tempFile);
+                    ClipboardHandler.copyImageFromFile(tempFile, makeCopiedToClipboardMessage());
+                } catch (Exception e) {
+                    net.user.ScreenshotClipboardClient.LOGGER.error("Failed to prepare screenshot for clipboard", e);
+                }
+            }
+            callback.accept(image);
+        };
+    }
 }
