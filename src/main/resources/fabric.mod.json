@@ -3,7 +3,7 @@
 	"id": "screenshot_clipboard",
 	"version": "${version}",
 	"name": "Screenshot Clipboard",
-	"description": "Copies screenshots directly to the system clipboard.",
+	"description": "Copies screenshots to your clipboard.",
 	"authors": [
 		"User"
 	],
