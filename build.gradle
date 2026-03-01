@@ -15,7 +15,7 @@ repositories {
 
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings loom.officialMojangMappings() // Using Official Mappings for maximum stability
+	mappings "net.fabricmc:yarn:1.21.1+build.3:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 }
@@ -44,9 +44,13 @@ jar {
 	}
 }
 
-tasks.register('copyJarToAssets', Copy) {
-	from jar
-	into rootProject.file('assets')
-}
+def modsDir = project.hasProperty('mods_folder') && project.mods_folder?.trim()
+	? file(project.mods_folder.trim())
+	: file(System.getProperty('user.home') + '/AppData/Roaming/.minecraft/mods')
 
-build.finalizedBy(copyJarToAssets)
+tasks.register('copyToMods', Copy) {
+	from remapJar
+	into modsDir
+	duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+build.finalizedBy(copyToMods)

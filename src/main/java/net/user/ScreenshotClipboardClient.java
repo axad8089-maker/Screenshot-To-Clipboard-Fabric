@@ -10,6 +10,7 @@ public class ScreenshotClipboardClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        System.setProperty("java.awt.headless", "false");
         LOGGER.info("Screenshot to Clipboard initialized!");
     }
 }

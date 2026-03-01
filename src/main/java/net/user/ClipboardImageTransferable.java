@@ -14,7 +14,7 @@ public class ClipboardImageTransferable implements Transferable {
 
     @Override
     public DataFlavor[] getTransferDataFlavors() {
-        return new DataFlavor[] { DataFlavor.imageFlavor };
+        return new DataFlavor[]{DataFlavor.imageFlavor};
     }
 
     @Override
